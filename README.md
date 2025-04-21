@@ -4,7 +4,7 @@
 TIMESERIES DATACRUNCHER (TSDATACRUNCHER OR TSDC) creates a simple configuration file, command line input parses, and time loop to process time-series data. Any processing code can be put in this loop to take advantage of the setup. The default package included produces RSAM miniseed files from filtered seismic data.
 
 ## Installation
-Download or clone the git repository to your local machine. Navigate to the 
+Download or clone the git repository to your local machine. Navigate to where you downloaded the package, create the conda environment, and install the package with pip. Here are the steps on my machine:
 
 
 ```
@@ -12,8 +12,7 @@ $ conda create -n tsdc311 python=3.11 obspy bokeh psutil
 $ cd /home/jwellik   # or your download directory
 $ mv tsdatacruncher-main tsdatacruncher  # rename if downloaded from git
 $ cd tsdatacruncher  # enter top level directory
-$ pip install .      # install as a package
-$ 
+$ pip install .      # install as a package 
 ```
 
 ## Configuration file
@@ -25,7 +24,7 @@ Please see ./results/ffrsam/gareloi/gareloi.yaml for an example and documentatio
 Example usage:
 ```
 $ cd /home/jwellik/tsdatacruncher  # enter top level directory
-$ conda activate tsdc311
+$ conda activate tsdc311  # activate conda environment
 $ python ./run_tsdatacruncher.py --config ./results/ffrsam/gareloi/gareloi.yaml
 ```
 
@@ -54,3 +53,5 @@ $ python
 > print(st)
 > st.plot()
 ```
+
+To see an example of how to plot many stations using Bokeh, see ./scripts/simple_bokeh.html. This package does not include the required results to run this script, but the example should help you out.
