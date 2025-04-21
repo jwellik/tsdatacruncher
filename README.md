@@ -1,4 +1,4 @@
-<img src="https://github.com/jwellik/tsdatacruncher/blob/main/img/trex.png" width=1510 alt="TREX!" />
+<img src="https://github.com/jwellik/tsdatacruncher/blob/main/img/trex.png" width=1210 alt="TREX!" />
 
 ## Overview
 TIMESERIES DATACRUNCHER (TSDATACRUNCHER OR TSDC) creates a simple configuration file, command line input parses, and time loop to process time-series data. Any processing code can be put in this loop to take advantage of the setup. The default package included produces RSAM miniseed files from filtered seismic data.
