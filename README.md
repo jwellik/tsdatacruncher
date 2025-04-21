@@ -6,35 +6,44 @@ TIMESERIES DATACRUNCHER (TSDATACRUNCHER OR TSDC) creates a simple configuration 
 ## Installation
 Download or clone the git repository to your local machine. Navigate to where you downloaded the package, create the conda environment, and install the package with pip. Here are the steps on my machine:
 
+```
+$ cd /opt
+$ wget https://github.com/jwellik/tsdatacruncher/archive/refs/heads/main.zip  # Download package
+$ chmod -R 755 main.zip  # set permissions
+$ unzip main.zip   # unzip
+$ mv tsdatacruncher-main tsdatacruncher  # change name
+$ cd tsdatacruncher  # enter top-level directory
+```
 
+## Set up Conda environment
+Next, create a conda environment. The only dependencies are obspy, bokeh, and psutil. In addition, install the local package with pip. The flag, -e, makes the local install "updateable." If you modify any of the code, it will be immediately usable in your environment.
 ```
 $ conda create -n tsdc311 python=3.11 obspy bokeh psutil
-$ cd /home/jwellik   # or your download directory
-$ mv tsdatacruncher-main tsdatacruncher  # rename if downloaded from git
-$ cd tsdatacruncher  # enter top level directory
-$ pip install .      # install as a package 
+$ conda activate tsdc311
+(tsdc311) $ pip install -e .  # Intsall tsdatacruncher as a package
+```
+
+## Usage
+Finally, backpopulate data from Gareloi Volcano, Alaska.
+```
+(tsdc311) $ python ./run_tsdatacruncher.py --config ./results/ffrsam/gareloi/gareloi.yaml --t1 2025-03-01 --t2 2025-03-02
+```
+Then, update the most recent 10 minutes of data
+```
+(tsdc311) $ python ./run_tsdatacruncher.py --config ./results/ffrsam/gareloi/gareloi.yaml --tproc '10min'
 ```
 
 ## Configuration file
 This program reads YAML configuration files.
 Please see ./results/ffrsam/gareloi/gareloi.yaml for an example and documentation.
+You can overwrite any parameter in the configuration file by providing it as a flag on the command line.
 
-
-## Usage
-Example usage:
-```
-$ cd /home/jwellik/tsdatacruncher  # enter top level directory
-$ conda activate tsdc311  # activate conda environment
-$ python ./run_tsdatacruncher.py --config ./results/ffrsam/gareloi/gareloi.yaml
-```
-
-This run will process the last 10 minutes of data from Gareloi Volcano, Alaska. Most of the output should go to the log file.
-
+## Output
 View the filesystem of miniseed data like this:
 ```
-$ cd /home/jwellik/tsdatacruncher  # enter top level directory
+$ cd /opt/tsdatacruncher  # enter top level directory
 $ cd ./results/SDS_ffrsam
-$ ll */*/*/*/*
+$ ll */*/*/*/*  # View files for every frequency band, year, network, station, and channel of data
 ```
 
 View the log file:
@@ -49,7 +58,7 @@ $ python
 > from obspy import UTCDateTime
 > from obspy.clients.filesystem.sds import Client
 > client = Client("./results/SDS_ffrsam/0000-0000")
-> st = client.get_waveforms("AV", "GAEA", "*", "BHZ", UTCDateTime()-86400, UTCDateTime())
+> st = client.get_waveforms("AV", "GAEA", "*", "BHZ", UTCDateTime("2025-03-01"), UTCDateTime("2025-03-02))
 > print(st)
 > st.plot()
 ```
@@ -62,7 +71,7 @@ I run tsdatacruncher on a cronjob to update RSAM values every 10 minutes. The lo
 ####################################################################################################
 # ::: ffrsam - Wellik
 
-*/10 * * * * /home/jwellik/PYTHON/PKG/tsdatacruncher/run_avoffrsam.sh
+*/10 * * * * /opt/tsdatacruncher/run_avoffrsam.sh
 0 0 * * *    rm /VDAP-NAS/jwellik/DATA/AVO/SDS_ffrsam/avo.log
 ```
 The contents of run_avoffrsam.sh look like this:
@@ -73,7 +82,7 @@ The contents of run_avoffrsam.sh look like this:
 sleep 60  # Pause for sixty seconds to make sure continuous waveform data are populated
 
 # cd to correct path
-TSDC=/home/jwellik/PYTHON/PKG/tsdatacruncher
+TSDC=/opt/tsdatacruncher
 OUTDIR=/VDAP-NAS/jwellik/DATA/AVO/SDS_ffrsam
 cd $TSDC
 
@@ -81,7 +90,7 @@ cd $TSDC
 PYTHON=/home/jwellik/miniconda3/envs/seismology311/bin/python
 $PYTHON $TSDC/run_tsdatacruncher.py --config $TSDC/results/ffrsam/avo/avo.yaml --id $TSDC/results/ffrsam/avo/avo.id --log-file $OUTDIR/avo.log
 ```
-ID and LOG-FILE are also specified in the CONFIG file, but they are defined explicitly here too.
+ID and LOG-FILE are specified in the CONFIG file, but they are defined explicitly here too.
 
 ## StationID files
 If you specify stationIDs (net.sta.loc.chan) as a file, the file can include other files. For example, avo.id can look like this:
