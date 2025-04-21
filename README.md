@@ -1,7 +1,7 @@
 <img src="https://github.com/jwellik/tsdatacruncher/blob/main/img/trex.png" width=1210 alt="TREX!" />
 
 ## Overview
-TIMESERIES DATACRUNCHER (TSDATACRUNCHER OR TSDC) creates a simple configuration file, command line input parses, and time loop to process time-series data. Any processing code can be put in this loop to take advantage of the setup. The default package includes methods to filter seismic data, calculate RSAM, and store the results as miniseed files in the SDS filesystem. I hope, however, that this framework allows for any process to be subsituted into run_tsdatacruncher.py to crunch a timeseries however you see fit.
+TIMESERIES DATACRUNCHER (TSDATACRUNCHER OR TSDC) creates a simple configuration file, command line input parser, and time loop to process time-series data. Any processing code can be put in this loop to take advantage of the setup. The default package includes methods to filter seismic data, calculate RSAM, and store the results as miniseed files in the SDS filesystem. I hope, however, that this framework allows for any process to be subsituted into run_tsdatacruncher.py to crunch a time-series however you see fit.
 
 ## Installation
 Download or clone the git repository to your local machine. Navigate to where you downloaded the package, create the conda environment, and install the package with pip. Here are the steps on my machine:
