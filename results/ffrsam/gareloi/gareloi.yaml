@@ -1,0 +1,102 @@
+# Example configuration file for tsdatacruncher
+# YAML format
+# You can override values in this file with command line arguments
+
+## Data source settings
+# This parameter will create an ObsPy Client. Options include FDSN Web Services, Winston Wave Servers, SDS Filestructure,
+# and SeedLink connections. Examples:
+# client: "IRIS"                             # FDSN shortcut mapped by ObsPy (https://docs.obspy.org/packages/obspy.clients.fdsn.html)
+# client: fdsn://service.iris.edu:18000      # FDSN Web Services
+# client: wws://127.0.0.1:16022              # Winston Wave Server
+# client: seedlink://127.0.0:18000           # SeedLink Server
+# client: sds:///home/sysop/var/lib/archive  # SDS filesystem of miniseed data
+client: "IRIS"
+
+
+## Time range settings
+# if t1 & t2 are both provided, data will be processed between t1 & t2
+# if t1 & t2 are both None, data will be processed between now - 'tproc' & now
+# if only t1 is provided, data will be processed between t1 and t1 + 'tproc'
+# if only t2 is provided, data will be processed between t2 - 'tproc' and t2
+t1: None
+t2: None
+
+
+## Station IDs
+# Station.channel pairs to process. By default, stations are provided as a list in YAML format.
+# Alternatively, stations can be supplied as a comma-separated list. E.g.:
+# id: "AV.GAEA.--.BHZ,AV.GALA.--.BHZ,AV.GASW.--.BHZ"
+#
+# Stations can also be specified in a separate text file where each station is provided on a separate line.
+# Text files can inlcude other files by specifying the relative path after the '@' symbol. See example below:
+#
+# id: './station_list.id'
+#
+# # station_list.id
+# AV.GAEA..BHZ
+# AV.GALA..BHZ
+# AV.GASW..BHZ
+# @more_stations.id
+#
+# # more_stations.id
+# AV.GANE..BHZ
+# AV.GANO..BHZ
+#
+# tsdatacruncher will ignore comments marked by '#', and it will remove duplicate station IDs if one is provided
+# multiple times.
+id:
+  - "AV.GAEA..BHZ"
+  - "AV.GALA..BHZ"
+  - "AV.GASW..BHZ"
+
+
+## Frequency Bands
+# These are the frequency bands that will be processsed.
+# None must be explicitly included in order to produce RSAM for the raw, unfiltered seismic data.
+# Alternatively, freq can be provided as a comma-separated string. E.g.,
+# freq: None,0.1-1,1-3,1-5,1-10,5-10,10-15,15,20
+#
+# The frequency band will be converted to a string to create folders to store the output. E.g.,
+# 0.1-1 is written as 0010-0100
+# 1-10  is written as 0100-1000
+# None  is written as 0000-0000
+freq:
+  - None
+  - 0.1-1
+  - 1-3
+  - 1-5
+  - 1-10
+  - 5-10
+  - 10-15
+  - 15-20
+
+
+## Processing time settings
+# These settings determine how much data is downloaded at once and how large of chunks are made with the for loop.
+# This is NOT the rsam_period. These values can be given as integers of minutes or as Pandas Timedelta strings.
+# For example, by default, no matter the value of t1 and t2, tsdatacruncher will split the download into day-long
+# segments (always rounding down to the start of a day). It will then loop through each hour of data in that download
+# to produce 1 minute RSAM before moving onto the next hour. After all 24 hours are processed, the next day of data will
+# be downloaded.
+# tsdatacruncher never tries to download or process more data than necessary. For example, if t1 to t2 is only 10 minutes,
+# only 10 minutes of data will be downloaded, even if 'tload' is 1 day.
+tload: "1D"     # Maximum amount of time to download in one chunk
+tproc: "1h"     # Processing time window length (minutes)
+tstep: "1h"     # Time between processing chunks (minutes)
+
+
+## Output SDS directory
+# RSAM data are stored as miniseed files in the SDS filesystem. One channel of data at 1 minute sample rate should be
+# about 12KB.
+# 'archive' is the top level directory of the SDS archive. The first subdirectory created will be for each frequency band.
+# Then the standard SDS syntax (https://www.seiscomp.de/seiscomp3/doc/applications/slarchive/SDS.html) is used. E.g.,
+# ./results/ffrsam/SDS_ffrsam/0000-0000/2025/AV/GAEA/BHZ.D/AV.GAEA..BHZ.D.2025.001
+archive: "./results/ffrsam/SDS_ffrsam"
+
+
+## Output settings
+# Location of log file and log-level. So far, only log-level "INFO" is used.
+# Overwrite is not yet used.
+overwrite: False
+log_file: "./results/ffrsam/gareloi/gareloi.log"
+log_level: "INFO"

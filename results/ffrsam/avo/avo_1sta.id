@@ -1,0 +1,37 @@
+# Best station for each volcano
+# (Good for quickly backing up data)
+AV.EDCR..BHZ  # Edgecumbe
+AV.WACK..BHZ  # Wrangell
+AV.SPCP..BHZ  # Spurr
+AV.RED..BHZ   # Redoubt
+AV.ILW..SHZ   # Iliamna
+AV.AUJA..BHZ  # Augustine
+#AK.Q19K..BHZ  # Fourpeaked
+AV.KAHG..BHZ  # Snowy
+# AV.KAWH..BHZ # Katmai
+AV.KABU..BHZ  # Katmai
+AV.ACH..BHZ   # Martin
+AV.PLK1..BHZ  # Peulik
+AV.PTHD..BHZ  # Anaikchak
+AV.VNCG..BHZ  # Veniaminof
+#AV.PV6A..BHZ  Pavlof
+AV.PS4A..BHZ  # Pavlof 
+AV.DOL..BHZ   # Dutton
+AV.ISLZ..BHZ  # Shishaldin
+#AV.WESP..BHZ  # Westdahl
+AV.WEBT..BHZ  # Westdahl
+AV.AKV..BHZ   # Akutan
+#AV.MCIR..BHZ  # Makushin
+AV.MGOD..BHZ  # Makushin 
+#AV.BOGO..BHZ  # Bogoslof
+AV.OKFG..BHZ  # Bogoslof
+#AV.OKCF..BHZ  # Okmok
+AV.OKFG..BHZ  # Okmok
+AV.CLES..BHZ  # Cleveland
+AV.KONW..BHZ  # Korovin
+AV.GSTD..BHZ  # Great Sitkin
+AV.KWB..BHZ   # Kanaga
+AV.TANO..BHZ  # Tanaga
+AV.GAEA..BHZ  # Gareloi
+AV.CETU..BHZ  # Semisopochnoi
+AV.LSSE..BHZ  # Little Sitkin 

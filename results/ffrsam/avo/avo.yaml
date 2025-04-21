@@ -1,0 +1,41 @@
+# Example configuration file for tsdatacruncher
+# Override values in this file with command line arguments
+
+# Data source settings
+client: "IRIS"
+
+# Time range settings
+t1: None
+t2: None
+
+# Station IDs - can be specified directly as a list
+id:
+  - "AV.GAEA.--.BHZ"
+  - "AV.GALA.--.BHZ"
+  - "AV.GASW.--.BHZ"
+
+# Alternative: specify station IDs as a single string with comma separation
+# id: "AV.GAEA.--.BHZ,AV.GALA.--.BHZ,AV.GASW.--.BHZ"
+
+freq:
+  - None
+  - 0.1-1
+  - 1-3
+  - 1-5
+  - 1-10
+  - 5-10
+  - 10-15
+  - 15-20
+
+# Processing settings
+tload: "1D"     # Maximum amount of time to download in one chunk (int days or Pandas Timedelta string ('1D')
+tproc: "1h"     # Processing time window length (minutes)
+tstep: "1h"     # Time between processing chunks (minutes)
+
+# Output SDS directory
+archive: "/VDAP-NAS/jwellik/DATA/AVO/SDS_ffrsam"
+
+# Output settings
+overwrite: False
+log_file: "/VDAP-NAS/jwellik/DATA/AVO/SDS_ffrsam/avo.log"
+log_level: "INFO"

@@ -1,0 +1,23 @@
+Metadata-Version: 2.4
+Name: tsdatacruncher
+Version: 0.1.0
+Summary: Crunch time series data like a boss.
+Home-page: https://github.com/jwellik/tsdatacruncher
+Author: Jay Wellik
+Author-email: jwellik@usgs.gov
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.11
+License-File: LICENSE
+Requires-Dist: obspy
+Requires-Dist: bokeh
+Requires-Dist: psutils
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary

@@ -1,0 +1,3 @@
+obspy
+bokeh
+psutils
